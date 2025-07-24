@@ -42,11 +42,13 @@ app.use(passUserToView); //middleware: pass that use information to an EJS Templ
 
 
 //GET
-app.get("/", async(req, res) => {
-  res.render("index.ejs", {
-    user:req.session.user,
-  })
-})
+app.get("/", async (req, res) => {
+  if (req.session.user) {
+    res.redirect(`/users/${req.session.user._id}/applications`)
+  } else {
+    res.render("index.ejs")
+  }
+});
 
 
 
